@@ -1,0 +1,30 @@
+
+<p>Last refreshed: {{ refreshTime }} seconds ago</p>
+
+<div *ngIf="{cryptos: cryptos$ | async, error: Error$ | async} as vm">
+  <h2>Top 20 Cryptocurrencies</h2>
+  <table *ngIf="!vm.error && vm.cryptos; else loading">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Symbol</th>
+        <th>Price (USD)</th>
+        <th>Market Cap (USD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let crypto of vm.cryptos">
+        <td>{{ crypto.market_cap_rank }}</td>
+        <td>{{ crypto.name }}</td>
+        <td>{{ crypto.symbol }}</td>
+        <td>{{ crypto.current_price }}</td>
+        <td>{{ crypto.market_cap }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #loading>
+    <div  *ngIf="!vm.error">Loading...</div>
+  </ng-template>
+</div>
+
